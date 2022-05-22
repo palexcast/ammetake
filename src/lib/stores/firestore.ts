@@ -11,8 +11,10 @@ const firebaseConfig = {
 };
 
 const createFirestore = async (firebaseApp: FirebaseApp): Promise<Firestore> => {
-	const { getFirestore } = await import('firebase/firestore');
-	return getFirestore(firebaseApp);
+	const { getFirestore, enableIndexedDbPersistence } = await import('firebase/firestore');
+	const db = getFirestore(firebaseApp);
+	await enableIndexedDbPersistence(db);
+	return db;
 };
 
 export const firestoreApp: FirebaseApp = initializeApp(firebaseConfig);

@@ -22,13 +22,16 @@ const config = {
 		},
 
 		vite: {
+			build: {
+				target: 'esnext'
+			},
 			css: {
 				preprocessorOptions: {
 					scss: {
 						additionalData: '@use "src/variables.scss" as *;'
 					}
 				}
-			}
+			},
 		}
 	}
 };

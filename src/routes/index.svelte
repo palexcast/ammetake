@@ -29,11 +29,6 @@
 		flex: 1;
 	}
 
-	h1 {
-		width: 100%;
-		text-align: center;
-	}
-
 	.feeding,
 	.potty {
 		margin: 1em 0;
