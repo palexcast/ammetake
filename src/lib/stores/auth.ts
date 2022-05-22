@@ -10,16 +10,14 @@ const createAuth = () => {
 		let unsubscribe: Unsubscribe = () => void 0;
 
 		async function listen() {
-			if (browser) {
-				const { firestore } = await import('../../firestore');
-				const { getAuth, onAuthStateChanged } = await import('firebase/auth');
-
-				auth = getAuth(firestore);
-
-				unsubscribe = onAuthStateChanged(auth, set);
-			} else {
+			if (!browser) {
 				set(null);
+				return;
 			}
+			const { firestoreApp } = await import('./firestore');
+			const { getAuth, onAuthStateChanged } = await import('firebase/auth');
+			auth = getAuth(firestoreApp);
+			unsubscribe = onAuthStateChanged(auth, set);
 		}
 
 		listen();

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import {auth} from '../stores/auth';
+	import { auth } from '../stores/auth';
 </script>
 
 <nav>
@@ -53,7 +53,8 @@
 		}
 	}
 
-	button, a {
+	button,
+	a {
 		color: var(--primary-font-color);
 		background: none;
 		border: none;

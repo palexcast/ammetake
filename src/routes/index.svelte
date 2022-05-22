@@ -1,32 +1,41 @@
 <script context="module" lang="ts">
-    export const prerender = true;
+	export const prerender = true;
 </script>
 
 <script lang="ts">
-    import Counter from '$lib/Counter.svelte';
+	import AddFeedingEventSection from '../lib/components/AddFeedingEventSection.svelte';
+	import AddPottyEventSection from '../lib/components/AddPottyEventSection.svelte';
 </script>
 
 <svelte:head>
-    <title>Ammetåke</title>
-    <meta name="description" content="Ammetåke"/>
+	<meta name="description" content="Ammetåke" />
 </svelte:head>
 
 <section>
-    <h1>Velkommen til ammetåken</h1>
-
-    <Counter/>
+	<div class="feeding">
+		<AddFeedingEventSection />
+	</div>
+	<div class="potty">
+		<AddPottyEventSection />
+	</div>
 </section>
 
 <style>
-    section {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        flex: 1;
-    }
+	section {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		flex: 1;
+	}
 
-    h1 {
-        width: 100%;
-    }
+	h1 {
+		width: 100%;
+		text-align: center;
+	}
+
+	.feeding,
+	.potty {
+		margin: 1em 0;
+	}
 </style>
