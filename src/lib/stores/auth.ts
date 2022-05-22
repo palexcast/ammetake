@@ -1,6 +1,13 @@
 import { readable } from 'svelte/store';
 import { browser } from '$app/env';
-import type { Auth, User } from 'firebase/auth';
+import {
+	getAuth,
+	onAuthStateChanged,
+	signInWithEmailAndPassword,
+	signOut,
+	type Auth,
+	type User
+} from 'firebase/auth';
 import type { Unsubscribe } from '@firebase/util';
 
 const createAuth = () => {
@@ -15,7 +22,6 @@ const createAuth = () => {
 				return;
 			}
 			const { firestoreApp } = await import('./firestore');
-			const { getAuth, onAuthStateChanged } = await import('firebase/auth');
 			auth = getAuth(firestoreApp);
 			unsubscribe = onAuthStateChanged(auth, set);
 		}
@@ -26,19 +32,13 @@ const createAuth = () => {
 	});
 
 	async function signIn(email: string, password: string) {
-		const { signInWithEmailAndPassword } = await import('firebase/auth');
 		await signInWithEmailAndPassword(auth, email, password);
-	}
-
-	async function signOut() {
-		const { signOut } = await import('firebase/auth');
-		await signOut(auth);
 	}
 
 	return {
 		subscribe,
 		signIn,
-		signOut
+		signOut: async () => await signOut(auth)
 	};
 };
 

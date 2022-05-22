@@ -1,4 +1,4 @@
 export type LineData = {
-    labels: string[],
-    datasets: { data: number[] }[]
-}
+	labels: string[];
+	datasets: { data: number[] }[];
+};

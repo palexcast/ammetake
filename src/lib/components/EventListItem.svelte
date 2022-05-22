@@ -1,14 +1,13 @@
 <script lang="ts">
 	import type { BabyEvent } from '../types/basic-event';
-	import {EventType} from "../types/basic-event.js";
-	import {getPottyIcon} from "../utils/common-utils.js";
+	import { EventType } from '../types/basic-event.js';
+	import { getPottyIcon } from '../utils/common-utils.js';
 
 	export let event: BabyEvent;
 </script>
 
 <div class="event">
 	{#if event.eventType === EventType.Feeding}
-
 		<pre><code>{JSON.stringify(event)}</code></pre>
 	{/if}
 	{#if event.eventType === EventType.Potty}

@@ -6,6 +6,16 @@ import { browser } from '$app/env';
 import { nullify, toDate } from '../utils/firestore-utils';
 import type { QueryDocumentSnapshot } from 'firebase/firestore';
 import { EventType } from '../types/basic-event';
+import {
+	addDoc,
+	collection,
+	getFirestore,
+	limit,
+	onSnapshot,
+	orderBy,
+	query,
+	where
+} from 'firebase/firestore';
 
 const collectionName = 'events';
 
@@ -23,7 +33,6 @@ const add = async (event: PottyEvent): Promise<DocumentReference | null> => {
 		return null;
 	}
 	const { firestoreApp } = await import('./firestore');
-	const { getFirestore, collection, addDoc } = await import('firebase/firestore');
 	const db = getFirestore(firestoreApp);
 	try {
 		return await addDoc(collection(db, collectionName), nullify(event));
@@ -42,7 +51,6 @@ const all: Readable<PottyEvent[]> = readable<PottyEvent[]>([], (set) => {
 			set([]);
 			return;
 		}
-		const { collection, query, onSnapshot, where } = await import('firebase/firestore');
 		const q = query(
 			collection(firestoreDb, collectionName),
 			where('eventType', '==', EventType.Potty)
@@ -67,9 +75,6 @@ const previous: Readable<PottyEvent | null> = readable<PottyEvent | null>(null, 
 			set(null);
 			return;
 		}
-		const { collection, query, onSnapshot, orderBy, where, limit } = await import(
-			'firebase/firestore'
-		);
 		const q = query(
 			collection(firestoreDb, collectionName),
 			where('eventType', '==', EventType.Potty),

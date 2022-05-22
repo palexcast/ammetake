@@ -3,7 +3,7 @@
 	import { type PottyEvent, PottyType } from '../types/potty-event';
 	import { EventType } from '../types/basic-event';
 	import Timer from './Timer.svelte';
-	import {getPottyIcon} from "../utils/common-utils.js";
+	import { getPottyIcon } from '../utils/common-utils.js';
 
 	const add = async (type: PottyType): Promise<void> => {
 		let event: PottyEvent = {

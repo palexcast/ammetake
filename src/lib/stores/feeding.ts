@@ -1,5 +1,18 @@
 import { type Readable, readable } from 'svelte/store';
-import type { DocumentReference, QueryDocumentSnapshot } from 'firebase/firestore';
+import {
+	collection,
+	limit,
+	onSnapshot,
+	orderBy,
+	query,
+	where,
+	type DocumentReference,
+	type QueryDocumentSnapshot,
+	getFirestore,
+	addDoc,
+	updateDoc,
+	doc
+} from 'firebase/firestore';
 import type { Unsubscribe } from '@firebase/util';
 import type { FeedingEvent } from '../types/feeding-event';
 import { browser } from '$app/env';
@@ -25,7 +38,6 @@ const add = async (event: FeedingEvent): Promise<DocumentReference | null> => {
 		return null;
 	}
 	const { firestoreApp } = await import('./firestore');
-	const { getFirestore, collection, addDoc } = await import('firebase/firestore');
 	const db = getFirestore(firestoreApp);
 	try {
 		return await addDoc(collection(db, collectionName), nullify(event));
@@ -40,7 +52,6 @@ const update = async (event: FeedingEvent): Promise<void> => {
 		return;
 	}
 	const { firestoreApp } = await import('./firestore');
-	const { getFirestore, doc, updateDoc } = await import('firebase/firestore');
 	const db = getFirestore(firestoreApp);
 	try {
 		const docRef = doc(db, collectionName, event.id as string);
@@ -61,7 +72,6 @@ const all: Readable<FeedingEvent[]> = readable<FeedingEvent[]>([], (set) => {
 			set([]);
 			return;
 		}
-		const { collection, query, onSnapshot, where } = await import('firebase/firestore');
 		const q = query(
 			collection(firestoreDb, collectionName),
 			where('eventType', '==', EventType.Feeding)
@@ -86,9 +96,6 @@ const previous: Readable<FeedingEvent | null> = readable<FeedingEvent | null>(nu
 			set(null);
 			return;
 		}
-		const { collection, query, onSnapshot, orderBy, where, limit } = await import(
-			'firebase/firestore'
-		);
 		const q = query(
 			collection(firestoreDb, collectionName),
 			where('eventType', '==', EventType.Feeding),

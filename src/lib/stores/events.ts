@@ -3,6 +3,7 @@ import type { QueryDocumentSnapshot } from 'firebase/firestore';
 import type { Unsubscribe } from '@firebase/util';
 import { toDate } from '../utils/firestore-utils';
 import type { BabyEvent } from '../types/basic-event';
+import { collection, onSnapshot, query } from 'firebase/firestore';
 
 const collectionName = 'events';
 
@@ -27,7 +28,6 @@ const all: Readable<BabyEvent[]> = readable<BabyEvent[]>([], (set) => {
 			set([]);
 			return;
 		}
-		const { collection, query, onSnapshot } = await import('firebase/firestore');
 		const q = query(collection(firestoreDb, collectionName));
 		unsubscribe = onSnapshot(q, (querySnapshot) => {
 			const events = querySnapshot.docs.map((doc) => convert(doc));

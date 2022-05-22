@@ -1,5 +1,5 @@
 import { Breast } from '../types/feeding-event';
-import {PottyType} from "../types/potty-event";
+import { PottyType } from '../types/potty-event';
 
 export const isNil = (obj: unknown): boolean => obj === undefined || obj === null;
 
@@ -40,7 +40,6 @@ export const formatTimeHMS = (date: Date): string => {
 		twoDigits(date.getSeconds())
 	].join(':');
 };
-
 
 export const getPottyIcon = (type: PottyType): string => {
 	switch (type) {

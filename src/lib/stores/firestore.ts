@@ -1,5 +1,5 @@
 import { initializeApp, type FirebaseApp } from 'firebase/app';
-import type { Firestore } from 'firebase/firestore';
+import { enableIndexedDbPersistence, getFirestore, type Firestore } from 'firebase/firestore';
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyDzODcyW4kvQKr_E-Hu-KqxQxhQuPZDNN8',
@@ -11,7 +11,6 @@ const firebaseConfig = {
 };
 
 const createFirestore = async (firebaseApp: FirebaseApp): Promise<Firestore> => {
-	const { getFirestore, enableIndexedDbPersistence } = await import('firebase/firestore');
 	const db = getFirestore(firebaseApp);
 	await enableIndexedDbPersistence(db);
 	return db;
