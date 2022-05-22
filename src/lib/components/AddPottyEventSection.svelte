@@ -2,8 +2,8 @@
 	import { potty } from '../stores/potty';
 	import { type PottyEvent, PottyType } from '../types/potty-event';
 	import { EventType } from '../types/basic-event';
-	import { feeding } from '../stores/feeding';
 	import Timer from './Timer.svelte';
+	import {getPottyIcon} from "../utils/common-utils.js";
 
 	const add = async (type: PottyType): Promise<void> => {
 		let event: PottyEvent = {
@@ -14,31 +14,20 @@
 		await potty.add(event);
 	};
 
-	const getIcon = (type: PottyType): string => {
-		switch (type) {
-			case PottyType.POOP:
-				return '💩';
-			case PottyType.PEE:
-				return '💦';
-			case PottyType.BOTH:
-				return '💩💦';
-		}
-	};
-
 	$: previous = potty.previous;
 </script>
 
 <div class="wrapper">
 	{#if $previous}
 		<span>
-			Tid siden sist bleieskift ({getIcon($previous.type)}) <Timer start={$previous.created} />
+			Tid siden sist bleieskift ({getPottyIcon($previous.type)}) <Timer start={$previous.created} />
 		</span>
 	{/if}
 
 	<div class="buttons">
-		<button on:click={() => add(PottyType.PEE)}>💦</button>
-		<button on:click={() => add(PottyType.POOP)}>💩</button>
-		<button on:click={() => add(PottyType.BOTH)}>💩💦</button>
+		<button on:click={() => add(PottyType.PEE)}>{getPottyIcon(PottyType.PEE)}</button>
+		<button on:click={() => add(PottyType.POOP)}>{getPottyIcon(PottyType.POOP)}</button>
+		<button on:click={() => add(PottyType.BOTH)}>{getPottyIcon(PottyType.BOTH)}</button>
 	</div>
 </div>
 
@@ -60,6 +49,7 @@
 		padding: 0.5em;
 		border-radius: 5px;
 		border: 0;
+		width: 4em;
 
 		&:hover {
 			filter: brightness(0.85);

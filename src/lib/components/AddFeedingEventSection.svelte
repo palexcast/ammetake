@@ -155,6 +155,7 @@
 		padding: 0.5em;
 		border-radius: 5px;
 		border: 0;
+		color: var(--background-color);
 
 		&:hover {
 			filter: brightness(0.85);
