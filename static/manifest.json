@@ -12,6 +12,11 @@
       "src": "pwa-512x512.png",
       "type": "image/png",
       "sizes": "512x512"
+    },{
+      "src": "pwa-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ],
   "background_color": "#1d2d44",
