@@ -21,7 +21,7 @@
 			case PottyType.PEE:
 				return '💦';
 			case PottyType.BOTH:
-				return '💥';
+				return '💩💦';
 		}
 	};
 
@@ -38,7 +38,7 @@
 	<div class="buttons">
 		<button on:click={() => add(PottyType.PEE)}>💦</button>
 		<button on:click={() => add(PottyType.POOP)}>💩</button>
-		<button on:click={() => add(PottyType.BOTH)}>💥</button>
+		<button on:click={() => add(PottyType.BOTH)}>💩💦</button>
 	</div>
 </div>
 
