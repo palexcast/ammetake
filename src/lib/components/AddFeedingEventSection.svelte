@@ -61,7 +61,7 @@
 			!isNil(previous) &&
 			previous.startedWith !== type &&
 			!previous.stoppedSecond &&
-			lessThanFrom(previous.created, 15)
+			lessThanFrom(previous.stopped, 15)
 		) {
 			event = previous;
 			event.stopped = new Date();
