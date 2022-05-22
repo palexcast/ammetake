@@ -95,9 +95,7 @@
 				{breastTranslated(oppositeBreast($previous.startedWith))} bryst.
 			</span>
 			<span>
-				Tid siden siste ammestart
-				<Timer start={$previous.created} />
-				på {breastTranslated($previous.startedWith)} bryst.
+				Sist amming var for <Timer start={$previous.created} /> siden.
 			</span>
 		</div>
 	{/if}
