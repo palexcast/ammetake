@@ -31,3 +31,24 @@ button {
 	display: flex;
 	flex-direction: column;
 }
+
+.button__primary {
+	padding: 0.5em;
+	border-radius: 5px;
+	border: 0;
+	color: var(--background-color);
+	background-color: var(--primary-color);
+}
+
+.button__secondary {
+	padding: 0.5em;
+	border-radius: 5px;
+	border: 0;
+	color: var(--background-color);
+	background-color: var(--secondary-color);
+}
+
+.button__primary:hover {
+	filter: brightness(0.85);
+	cursor: pointer;
+}

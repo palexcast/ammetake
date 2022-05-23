@@ -25,9 +25,15 @@
 	{/if}
 
 	<div class="buttons">
-		<button on:click={() => add(PottyType.PEE)}>{getPottyIcon(PottyType.PEE)}</button>
-		<button on:click={() => add(PottyType.POOP)}>{getPottyIcon(PottyType.POOP)}</button>
-		<button on:click={() => add(PottyType.BOTH)}>{getPottyIcon(PottyType.BOTH)}</button>
+		<button class="button__primary" on:click={() => add(PottyType.PEE)}
+			>{getPottyIcon(PottyType.PEE)}</button
+		>
+		<button class="button__primary" on:click={() => add(PottyType.POOP)}
+			>{getPottyIcon(PottyType.POOP)}</button
+		>
+		<button class="button__primary" on:click={() => add(PottyType.BOTH)}
+			>{getPottyIcon(PottyType.BOTH)}</button
+		>
 	</div>
 </div>
 
@@ -45,15 +51,6 @@
 	}
 
 	button {
-		background-color: var(--primary-color);
-		padding: 0.5em;
-		border-radius: 5px;
-		border: 0;
 		width: 4em;
-
-		&:hover {
-			filter: brightness(0.85);
-			cursor: pointer;
-		}
 	}
 </style>

@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { auth } from '../stores/auth';
 </script>
 
 <nav>
@@ -9,8 +8,8 @@
 		<li class:active={$page.url.pathname === '/dagbok'}>
 			<a sveltekit:prefetch href="/dagbok">Dagbok</a>
 		</li>
-		<li class:active={$page.url.pathname === '/logg-ut'}>
-			<button on:click={() => auth.signOut()}>Logg ut</button>
+		<li class="profile" class:active={$page.url.pathname === '/profil'}>
+			<a sveltekit:prefetch href="/profil">⚙️</a>
 		</li>
 	</ul>
 </nav>
@@ -65,5 +64,10 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+	}
+
+	.profile {
+		min-width: 3em;
+		flex-grow: unset;
 	}
 </style>

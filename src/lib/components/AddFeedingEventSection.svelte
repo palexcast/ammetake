@@ -109,14 +109,18 @@
 	{/if}
 	<div class="start-stop-buttons">
 		{#if enableLeft}
-			<button class="start" on:click={() => start(Breast.Left, $previous)}>Start Venstre</button>
+			<button class="button__primary" on:click={() => start(Breast.Left, $previous)}
+				>Start Venstre</button
+			>
 		{:else}
-			<button class="stop" on:click={() => stop($previous)}>Stopp Venstre</button>
+			<button class="button__secondary" on:click={() => stop($previous)}>Stopp Venstre</button>
 		{/if}
 		{#if enableRight}
-			<button class="start" on:click={() => start(Breast.Right, $previous)}>Start Høyre</button>
+			<button class="button__primary" on:click={() => start(Breast.Right, $previous)}
+				>Start Høyre</button
+			>
 		{:else}
-			<button class="stop" on:click={() => stop($previous)}>Stopp Høyre</button>
+			<button class="button__secondary" on:click={() => stop($previous)}>Stopp Høyre</button>
 		{/if}
 	</div>
 </div>
@@ -149,24 +153,5 @@
 	.start-stop-buttons {
 		display: flex;
 		gap: 1em;
-	}
-
-	button {
-		padding: 0.5em;
-		border-radius: 5px;
-		border: 0;
-		color: var(--background-color);
-
-		&:hover {
-			filter: brightness(0.85);
-			cursor: pointer;
-		}
-
-		&.start {
-			background-color: var(--primary-color);
-		}
-		&.stop {
-			background-color: var(--secondary-color);
-		}
 	}
 </style>
