@@ -52,7 +52,6 @@
 		}
 	}
 
-	button,
 	a {
 		color: var(--primary-font-color);
 		background: none;
