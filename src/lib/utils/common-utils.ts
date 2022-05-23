@@ -22,10 +22,6 @@ export const breastTranslated = (breast: Breast): string => {
 	return breast === Breast.Left ? 'venstre' : 'høyre';
 };
 
-export const breastTranslatedC = (breast: Breast): string => {
-	return breast === Breast.Left ? 'Venstre' : 'Høyre';
-};
-
 export const twoDigits = (num: number): string => {
 	return num < 10 ? `0${num}` : `${num}`;
 };
