@@ -36,6 +36,7 @@
 		"cookie": "^0.4.1",
 		"firebase": "^9.8.1",
 		"sass": "^1.51.0",
-		"svelte-chartjs": "^1.1.4"
+		"svelte-chartjs": "^1.1.4",
+		"web-vitals": "^2.1.4"
 	}
 }

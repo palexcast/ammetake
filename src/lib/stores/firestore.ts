@@ -1,5 +1,7 @@
 import { initializeApp, type FirebaseApp } from 'firebase/app';
 import { enableIndexedDbPersistence, getFirestore, type Firestore } from 'firebase/firestore';
+import { getPerformance } from "firebase/performance";
+import {getLCP, getFID, getCLS} from 'web-vitals';
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyDzODcyW4kvQKr_E-Hu-KqxQxhQuPZDNN8',
@@ -13,8 +15,14 @@ const firebaseConfig = {
 const createFirestore = async (firebaseApp: FirebaseApp): Promise<Firestore> => {
 	const db = getFirestore(firebaseApp);
 	await enableIndexedDbPersistence(db);
+
 	return db;
 };
 
 export const firestoreApp: FirebaseApp = initializeApp(firebaseConfig);
 export const firestoreDb: Firestore | null = await createFirestore(firestoreApp);
+export const firestorePerf = getPerformance(firestoreApp);
+
+getCLS(console.log);
+getFID(console.log);
+getLCP(console.log);
