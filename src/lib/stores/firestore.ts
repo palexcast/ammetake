@@ -1,7 +1,7 @@
 import { initializeApp, type FirebaseApp } from 'firebase/app';
 import { enableIndexedDbPersistence, getFirestore, type Firestore } from 'firebase/firestore';
-import { getPerformance } from "firebase/performance";
-import {getLCP, getFID, getCLS} from 'web-vitals';
+import { getPerformance } from 'firebase/performance';
+import { getLCP, getFID, getCLS } from 'web-vitals';
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyDzODcyW4kvQKr_E-Hu-KqxQxhQuPZDNN8',

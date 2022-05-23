@@ -1,63 +1,42 @@
-import { build, files, version } from '$service-worker';
-const worker = self as unknown as any;
-const FILES = `cache-${version}`;
-const to_cache = build.concat(files);
-const staticAssets = new Set(to_cache);
-// listen for the install events
-worker.addEventListener('install', (event: any) => {
-	event.waitUntil(
-		caches
-			.open(FILES)
-			.then((cache) => cache.addAll(to_cache))
-			.then(() => {
-				worker.skipWaiting();
+import { registerRoute } from 'workbox-routing';
+import { NetworkFirst, StaleWhileRevalidate } from 'workbox-strategies';
+
+// Used for filtering matches based on status code, header, or both
+import { CacheableResponsePlugin } from 'workbox-cacheable-response';
+
+// Cache page navigations (html) with a Network First strategy
+registerRoute(
+	// Check to see if the request is a navigation to a new page
+	({ request }) => request.mode === 'navigate',
+	// Use a Network First caching strategy
+	new NetworkFirst({
+		// Put all cached files in a cache named 'pages'
+		cacheName: 'pages',
+		plugins: [
+			// Ensure that only requests that result in a 200 status are cached
+			new CacheableResponsePlugin({
+				statuses: [200]
 			})
-	);
-});
-// listen for the activate events
-worker.addEventListener('activate', (event: any) => {
-	event.waitUntil(
-		caches.keys().then(async (keys) => {
-			// delete old caches
-			for (const key of keys) {
-				if (key !== FILES) await caches.delete(key);
-			}
-			worker.clients.claim();
-		})
-	);
-});
-// attempt to process HTTP requests and rely on the cache if offline
-async function fetchAndCache(request: Request) {
-	const cache = await caches.open(`offline-${version}`);
-	try {
-		const response = await fetch(request);
-		cache.put(request, response.clone());
-		return response;
-	} catch (err) {
-		const response = await cache.match(request);
-		if (response) return response;
-		throw err;
-	}
-}
-// listen for the fetch events
-worker.addEventListener('fetch', (event: any) => {
-	if (event.request.method !== 'GET' || event.request.headers.has('range')) return;
-	const url = new URL(event.request.url);
-	// only cache files that are local to your application
-	const isHttp = url.protocol.startsWith('http');
-	const isDevServerRequest =
-		url.hostname === self.location.hostname && url.port !== self.location.port;
-	const isStaticAsset = url.host === self.location.host && staticAssets.has(url.pathname);
-	const skipBecauseUncached = event.request.cache === 'only-if-cached' && !isStaticAsset;
-	if (isHttp && !isDevServerRequest && !skipBecauseUncached) {
-		event.respondWith(
-			(async () => {
-				// always serve static files and bundler-generated assets from cache.
-				// if your application has other URLs with data that will never change,
-				// set this variable to true for them and they will only be fetched once.
-				const cachedAsset = isStaticAsset && (await caches.match(event.request));
-				return cachedAsset || fetchAndCache(event.request);
-			})()
-		);
-	}
-});
+		]
+	})
+);
+
+// Cache CSS, JS, and Web Worker requests with a Stale While Revalidate strategy
+registerRoute(
+	// Check to see if the request's destination is style for stylesheets, script for JavaScript, or worker for web worker
+	({ request }) =>
+		request.destination === 'style' ||
+		request.destination === 'script' ||
+		request.destination === 'worker',
+	// Use a Stale While Revalidate caching strategy
+	new StaleWhileRevalidate({
+		// Put all cached files in a cache named 'assets'
+		cacheName: 'assets',
+		plugins: [
+			// Ensure that only requests that result in a 200 status are cached
+			new CacheableResponsePlugin({
+				statuses: [200]
+			})
+		]
+	})
+);

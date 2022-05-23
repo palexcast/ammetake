@@ -15,7 +15,6 @@
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/kit": "next",
-		"@types/cookie": "^0.4.1",
 		"@typescript-eslint/eslint-plugin": "^5.10.1",
 		"@typescript-eslint/parser": "^5.10.1",
 		"eslint": "^8.12.0",
@@ -31,12 +30,12 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@fontsource/fira-mono": "^4.5.0",
-		"@lukeed/uuid": "^2.0.0",
-		"cookie": "^0.4.1",
 		"firebase": "^9.8.1",
 		"sass": "^1.51.0",
 		"svelte-chartjs": "^1.1.4",
-		"web-vitals": "^2.1.4"
+		"web-vitals": "^2.1.4",
+		"workbox-cacheable-response": "^6.5.3",
+		"workbox-routing": "^6.5.3",
+		"workbox-strategies": "^6.5.3"
 	}
 }
