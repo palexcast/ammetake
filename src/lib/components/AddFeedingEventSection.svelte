@@ -4,7 +4,6 @@
 	import { formatTimeHM, isNil, lessThanFrom, oppositeBreast } from '../utils/common-utils';
 	import Timer from './Timer.svelte';
 	import { breastTranslated } from '../utils/common-utils.js';
-	import { TIME_TO_NEXT_FEEDING } from '../../settings';
 	import { EventType } from '../types/basic-event';
 
 	const enable = (previous: FeedingEvent, type: Breast): boolean => {
@@ -44,8 +43,8 @@
 		}
 	};
 
-	const nextTime = (previous: FeedingEvent): string => {
-		return formatTimeHM(new Date(previous.created.getTime() + TIME_TO_NEXT_FEEDING));
+	const nextTime = (previous: FeedingEvent, hours: number): string => {
+		return formatTimeHM(new Date(previous.created.getTime() + hours * 60 * 60 * 1000));
 	};
 
 	$: food = feeding.all;
@@ -91,7 +90,7 @@
 	{#if $previous}
 		<div class="details">
 			<span class="next">
-				Neste amming er kl {nextTime($previous)} på
+				Neste amming er kl {nextTime($previous, 3)} ({nextTime($previous, 4.5)}) på
 				{breastTranslated(oppositeBreast($previous.startedWith))} bryst.
 			</span>
 			<span>
